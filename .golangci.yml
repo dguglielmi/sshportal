@@ -1,42 +1,48 @@
+version: "2"
 run:
-  deadline: 1m
   tests: false
-  issues.exclude-files:
-    - "testing.go"
-    - ".*\\.pb\\.go"
-    - ".*\\.gen\\.go"
-
-linters-settings:
-  golint:
-    min-confidence: 0
-  maligned:
-    suggest-new: true
-  goconst:
-    min-len: 5
-    min-occurrences: 4
-  misspell:
-    locale: US
-
 linters:
-  disable-all: true
+  default: none
   enable:
     - bodyclose
     - dogsled
     - errcheck
-    - exportloopref
     - gochecknoinits
     - goconst
     - gocritic
-    - gofmt
-    - goimports
-    - gosimple
     - govet
     - ineffassign
     - misspell
     - nakedret
     - prealloc
-    #- revive
     - staticcheck
     - unconvert
     - unparam
     - unused
+  settings:
+    goconst:
+      min-len: 5
+      min-occurrences: 4
+    misspell:
+      locale: US
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - "testing.go"
+      - ".*\\.pb\\.go"
+      - ".*\\.gen\\.go"
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - "testing.go"
+      - ".*\\.pb\\.go"
+      - ".*\\.gen\\.go"

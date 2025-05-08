@@ -144,7 +144,7 @@ func ImportSSHKey(keyValue string) (*dbmodels.SSHKey, error) {
 	if privateKey, ok = parsedKey.(*rsa.PrivateKey); !ok {
 		return nil, errors.New("key type not supported")
 	}
-	key.Length = uint(privateKey.PublicKey.N.BitLen())
+	key.Length = uint(privateKey.N.BitLen())
 	// convert priv key to x509 format
 	var pemKey = &pem.Block{
 		Type:  "RSA PRIVATE KEY",
